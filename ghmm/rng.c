@@ -35,7 +35,7 @@
 *******************************************************************************/
 
 #ifdef HAVE_CONFIG_H
-#  include "../config.h"
+#  include "config.h"
 #endif
 #include <stdlib.h>
 #include <stdio.h>
@@ -43,6 +43,11 @@
 #include "math.h"
 #include "time.h"
 
+#ifdef WIN32
+// add for initstate
+#include "_random.c"
+
+#endif //end define WIN32
 /* The global RNG */
 GHMM_RNG *RNG;
 

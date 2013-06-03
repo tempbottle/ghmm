@@ -1,0 +1,1 @@
+env = Environment(MSVC_VERSION='9.0',CCFLAGS = ['/MD','/DWIN32'],CPPPATH=[r'D:\libxml2-2_9_1\include',r'D:\iconv\libiconv\include'])env.SharedLibrary("ghmm", Glob("*.c"),LIBS = ['libiconv','libxml2','kernel32'], LIBPATH = [r'D:\iconv\Release', r'D:\libxml2-2_9_1\lib'])

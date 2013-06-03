@@ -442,6 +442,7 @@ STOP:
 /*============================================================================*/
 double ighmm_rand_std_normal (int seed)
 {
+    double r2, theta;
 # define CUR_PROC "ighmm_rand_std_normal"
   if (seed != 0) {
     GHMM_RNG_SET (RNG, seed);
@@ -463,7 +464,6 @@ double ighmm_rand_std_normal (int seed)
        return x * sqrt((-2.0 * log(r2)) / r2);
      */
 
-    double r2, theta;
 
     r2 = -2.0 * log (GHMM_RNG_UNIFORM (RNG));   /* r2 ~ chi-square(2) */
     theta = 2.0 * PI * GHMM_RNG_UNIFORM (RNG);  /* theta ~ uniform(0, 2 \pi) */
@@ -477,6 +477,7 @@ double ighmm_rand_std_normal (int seed)
 /*============================================================================*/
 double ighmm_rand_normal(double mue, double u, int seed)
 {
+    double x;
 # define CUR_PROC "ighmm_rand_normal"
   if (seed != 0) {
     GHMM_RNG_SET(RNG, seed);
@@ -485,7 +486,6 @@ double ighmm_rand_normal(double mue, double u, int seed)
 #ifdef DO_WITH_GSL
     return gsl_ran_gaussian(RNG, sqrt (u)) + mue;
 #else
-    double x;
     x = sqrt(u) * ighmm_rand_std_normal(seed) + mue;
     return x;
 #endif
