@@ -36,7 +36,17 @@
 ################################################################################
 
 from distutils.core import setup,Extension
-   
+
+import os,sys
+
+cwd = os.getcwd()
+libxml2_path = os.path.join(cwd,'..','..','libxml2-2.9.1')
+libiconv_path = os.path.join(cwd,'..','..','libiconv')
+
+include_dirs_ = [os.path.join(libxml2_path,'include'), os.path.join(libiconv_path,'libiconv', 'include'),os.path.join(cwd,'..')]
+library_dirs_ = [os.path.join(libxml2_path,'lib'), os.path.join(libiconv_path,'lib'), os.path.join(cwd,'..','ghmm')]
+libs_ = ['libiconv','libxml2','kernel32','ghmms']
+
 setup(name="ghmmwrapper",
       version="0.8",
       description="Python wrapper for the GHMM library",
@@ -45,9 +55,9 @@ setup(name="ghmmwrapper",
       url="http://ghmm.org",
       ext_modules = [Extension('_ghmmwrapper',
                                ['sclass_change.c', 'pclasschange.c', 'gql.c', 'ghmmwrapper.i'],
-                               include_dirs = ['..'],
-                               library_dirs = ['../ghmm/.libs'],
-                               libraries = ['ghmm', 'm', 'pthread', 'xml2', 'z'],
+                               include_dirs = include_dirs_,
+                               library_dirs = library_dirs_,
+                               libraries = libs_,
                                extra_compile_args = ["-O2", "-pipe", "-Wall"], # -g might help debugging
                                depends = ['wrapper_alphabet.i', 'wrapper_cmodel.i', 'wrapper_cseq.i',
                                           'wrapper_dmodel.i', 'wrapper_dpmodel.i', 'wrapper_dpseq.i',
